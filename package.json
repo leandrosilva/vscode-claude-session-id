@@ -1,0 +1,75 @@
+{
+  "name": "claude-session-id",
+  "displayName": "CØdeZØne Claude Session ID",
+  "description": "Copy the name or UUID of the Claude Code session running in this window, straight from the editor title bar.",
+  "version": "0.2.0",
+  "publisher": "leandrosilva",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "claude",
+    "claude code",
+    "session",
+    "clipboard",
+    "copy"
+  ],
+  "icon": "images/icon.png",
+  "license": "MIT",
+  "activationEvents": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/leandrosilva/vscode-claude-session-id.git"
+  },
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "claudeSessionId.copy",
+        "title": "Copy Claude Code Session ID",
+        "category": "Claude Session",
+        "icon": "$(copy)"
+      },
+      {
+        "command": "claudeSessionId.copyName",
+        "title": "Copy Claude Code Session Name",
+        "category": "Claude Session"
+      },
+      {
+        "command": "claudeSessionId.copyUuid",
+        "title": "Copy Claude Code Session UUID",
+        "category": "Claude Session"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "claudeSessionId.copy",
+          "when": "activeWebviewPanelId == 'claudeVSCodePanel'",
+          "group": "navigation@1"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Claude Session ID",
+      "properties": {
+        "claudeSessionId.copyField": {
+          "type": "string",
+          "enum": [
+            "name",
+            "sessionId"
+          ],
+          "enumDescriptions": [
+            "The session name (e.g. hermes-monorepo-dd) — the address SendMessage uses.",
+            "The session UUID (e.g. 721b1834-ad98-4e49-9669-f20d7edd88fe) — what `claude --resume` takes."
+          ],
+          "default": "name",
+          "description": "Which field the title-bar button copies. The other one is always offered as a secondary action."
+        }
+      }
+    }
+  }
+}
